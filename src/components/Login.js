@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-const Login = ({ onBack }) => {
+const Login = ({ onLoginSuccess, onBack }) => {
+    const history = useHistory();
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -24,7 +26,19 @@ const Login = ({ onBack }) => {
         setTimeout(() => {
             console.log('Login data:', { ...formData, rememberMe });
             setIsLoading(false);
-            if (onBack) onBack();
+
+            // Tạo thông tin user giả lập
+            const userData = {
+                name: 'Nguyễn Văn A', // Tên user mặc định
+                email: formData.email,
+                phone: '0123456789'
+            };
+            if (onLoginSuccess) {
+                onLoginSuccess(userData);
+            }
+
+            // Chuyển hướng về trang chủ
+            history.push('/');
         }, 1500);
     };
 
@@ -32,15 +46,13 @@ const Login = ({ onBack }) => {
         <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8 bg-white rounded-2xl shadow-xl p-8">
                 {/* Back Button */}
-                {onBack && (
-                    <button
-                        onClick={onBack}
-                        className="flex items-center text-gray-600 hover:text-gray-800 transition duration-200 mb-4"
-                    >
-                        <span className="mr-2">←</span>
-                        Quay lại trang chủ
-                    </button>
-                )}
+                <button
+                    onClick={() => history.push('/')}
+                    className="flex items-center text-gray-600 hover:text-gray-800 transition duration-200 mb-4"
+                >
+                    <span className="mr-2">←</span>
+                    Quay lại trang chủ
+                </button>
 
                 {/* Header */}
                 <div className="text-center">

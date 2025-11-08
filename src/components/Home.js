@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import React from 'react';
 import Header from './header';
-
-// Tách component Home ra để dễ quản lý
-const Home = ({ selectedSort, setSelectedSort, products, seriesCategories, filterOptions, filterOptions2, sortOptions }) => {
+const Home = ({
+    selectedSort,
+    setSelectedSort,
+    products,
+    seriesCategories,
+    filterOptions,
+    filterOptions2,
+    sortOptions,
+    isLoggedIn,
+    userInfo,
+    onLogout
+}) => {
     return (
         <div className="min-h-screen bg-gray-50">
-            <Header />
+            <Header
+                isLoggedIn={isLoggedIn}
+                userInfo={userInfo}
+                onLogout={onLogout}
+            />
             <div className="container mx-auto px-4 py-6">
                 <h1 className="text-3xl font-bold mb-6">iPhone</h1>
                 <div className="flex flex-wrap gap-3 mb-6">
