@@ -12,17 +12,7 @@ const Header = ({ isLoggedIn, userInfo, onLogout }) => {
     const [categories, setCategories] = useState([[], []]);
     const [showUserMenu, setShowUserMenu] = useState(false);
 
-    // const allCities = [
-    //     'Hồ Chí Minh', 'Hà Nội', 'Đà Nẵng', 'Cần Thơ', 'Hải Phòng',
-    //     'Nha Trang', 'Vũng Tàu', 'Đà Lạt', 'Huế', 'Quy Nhơn',
-    //     'Bình Dương', 'Đồng Nai', 'Long An', 'Tiền Giang', 'An Giang'
-    // ];
 
-    // const allCategories = [
-    //     'Hãng điện thoại', 'Mức giá điện thoại', 'Điện thoại hot',
-    //     'iPhone', 'Samsung', 'Xiaomi', 'OPPO', 'realme', 'vivo',
-    //     'Phụ kiện', 'Dưới 2 triệu', 'Từ 2-4 triệu', 'Trên 4 triệu'
-    // ];
 
     useEffect(() => {
         const filteredCities = allCities.filter(city =>
@@ -287,9 +277,11 @@ const Header = ({ isLoggedIn, userInfo, onLogout }) => {
                                             <p className="text-sm font-medium text-gray-900">{userInfo?.name}</p>
                                             <p className="text-xs text-gray-500">{userInfo?.email}</p>
                                         </div>
-                                        <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
+                                        <Link
+                                            to="/account"
+                                            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
                                             Tài khoản của tôi
-                                        </button>
+                                        </Link>
                                         <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
                                             Đơn hàng
                                         </button>

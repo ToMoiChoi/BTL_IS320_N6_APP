@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
-import Header from './Header';
+
 import Footer from './Footer';
 import Card from './Card';
+import Header from './Header';
 
 // Hàm tiện ích để chuyển đổi chuỗi giá thành số (ví dụ: "10.000.000₫" -> 10000000)
 const parsePrice = (priceString) => {

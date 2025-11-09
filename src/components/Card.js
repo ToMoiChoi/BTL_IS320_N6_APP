@@ -5,16 +5,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Card = ({ product }) => {
-    // Tạo slug từ tên sản phẩm để dùng trong URL
     const productSlug = product.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
     const productPath = `/products/${productSlug}`;
 
     return (
-        // 2. Bọc toàn bộ Card bằng component Link
         <Link
-            to={productPath} // Đường dẫn đến trang sản phẩm
+            to={productPath}
             className="block bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition cursor-pointer group h-full"
-        // Dùng 'block' để Link hoạt động như một khối (div)
         >
             <div className="relative p-4">
                 {/* Khu vực Nhãn giảm giá và Trả góp */}

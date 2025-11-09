@@ -12,6 +12,7 @@ import {
   filterOptions2,
   sortOptions
 } from './data/productsData';
+import Account from './components/Account';
 
 const App = () => {
   const [selectedSort, setSelectedSort] = useState('popular');
@@ -57,7 +58,18 @@ const App = () => {
             />
           )}
         />
-
+        <Route
+          exact
+          path="/account"
+          render={(props) => (
+            <Account
+              {...props}
+              isLoggedIn={isLoggedIn}
+              userInfo={userInfo}
+              onLogout={handleLogout}
+            />
+          )}
+        />
         {/* ROUTE TRANG CHỦ (PHẢI ĐẶT CUỐI CÙNG HOẶC DÙNG 'exact' VÌ NÓ CÓ PATH="/") */}
         <Route exact path="/">
           <Home
