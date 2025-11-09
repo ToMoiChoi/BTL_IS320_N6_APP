@@ -1,5 +1,15 @@
-import React from 'react';
-import Header from './header';
+import React, { useMemo } from 'react';
+import Header from './Header';
+import Footer from './Footer';
+import Card from './Card';
+
+// Hàm tiện ích để chuyển đổi chuỗi giá thành số (ví dụ: "10.000.000₫" -> 10000000)
+const parsePrice = (priceString) => {
+    if (!priceString) return 0;
+    const cleanedPrice = priceString.replace(/\./g, '').replace(/[^0-9]/g, '');
+    return parseInt(cleanedPrice, 10);
+};
+
 const Home = ({
     selectedSort,
     setSelectedSort,
@@ -12,6 +22,31 @@ const Home = ({
     userInfo,
     onLogout
 }) => {
+
+    // 1. Dùng useMemo để tính toán danh sách sản phẩm đã sắp xếp
+    const sortedProducts = useMemo(() => {
+        const sortableProducts = [...products];
+        if (selectedSort === 'price-asc') {
+            // Sắp xếp giá thấp đến cao
+            return sortableProducts.sort((a, b) => {
+                const priceA = parsePrice(a.price);
+                const priceB = parsePrice(b.price);
+                return priceA - priceB;
+            });
+        } else if (selectedSort === 'price-desc') {
+            // Sắp xếp giá cao đến thấp
+            return sortableProducts.sort((a, b) => {
+                const priceA = parsePrice(a.price);
+                const priceB = parsePrice(b.price);
+                return priceB - priceA;
+            });
+        } else if (selectedSort === 'name-asc') {
+            return sortableProducts.sort((a, b) => a.name.localeCompare(b.name));
+        }
+        return sortableProducts;
+
+    }, [products, selectedSort]);
+
     return (
         <div className="min-h-screen bg-gray-50">
             <Header
@@ -21,6 +56,7 @@ const Home = ({
             />
             <div className="container mx-auto px-4 py-6">
                 <h1 className="text-3xl font-bold mb-6">iPhone</h1>
+                {/* ... (Các nút Series Categories) ... */}
                 <div className="flex flex-wrap gap-3 mb-6">
                     {seriesCategories.map((category, index) => (
                         <button
@@ -32,6 +68,7 @@ const Home = ({
                     ))}
                 </div>
 
+                {/* ... (Các Filter Options) ... */}
                 <h2 className="text-xl font-bold mb-4">Chọn theo tiêu chí</h2>
                 <div className="flex flex-wrap gap-3 mb-3">
                     {filterOptions.map((filter, index) => (
@@ -61,6 +98,7 @@ const Home = ({
                     ))}
                 </div>
 
+                {/* Khu vực Sắp xếp */}
                 <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
                     <h2 className="text-xl font-bold">Sắp xếp theo</h2>
                     <div className="flex gap-3 flex-wrap">
@@ -80,81 +118,20 @@ const Home = ({
                     </div>
                 </div>
 
+                {/* KHU VỰC HIỂN THỊ SẢN PHẨM */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    {products.map((product) => (
-                        <div
-                            key={product.id}
-                            className="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition cursor-pointer group"
-                        >
-                            <div className="relative p-4">
-                                <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
-                                    <span className="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
-                                        Giảm {product.discount}%
-                                    </span>
-                                    <span className="bg-blue-100 text-blue-600 text-xs font-medium px-2 py-1 rounded">
-                                        Trả góp {product.installmentRate}
-                                    </span>
-                                </div>
-
-                                <div className="aspect-square mb-4 overflow-hidden rounded-lg">
-                                    <img
-                                        src={product.image}
-                                        alt={product.name}
-                                        className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                                    />
-                                </div>
-
-                                <h3 className="font-medium text-sm mb-2 line-clamp-2 min-h-[40px]">
-                                    {product.name}
-                                </h3>
-
-                                <div className="flex flex-wrap gap-2 mb-3">
-                                    {product.specs.map((spec, index) => (
-                                        <span
-                                            key={index}
-                                            className="text-xs bg-gray-100 px-2 py-1 rounded"
-                                        >
-                                            {spec}
-                                        </span>
-                                    ))}
-                                </div>
-
-                                <div className="mb-2">
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-red-600 font-bold text-lg">
-                                            {product.price}
-                                        </span>
-                                        {product.originalPrice && (
-                                            <span className="text-gray-400 text-sm line-through">
-                                                {product.originalPrice}
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className="bg-blue-50 text-blue-600 text-xs px-2 py-1 rounded mb-2">
-                                    {product.installment}
-                                </div>
-
-                                {product.status ? (
-                                    <div className="text-orange-600 text-xs font-medium">
-                                        {product.status}
-                                    </div>
-                                ) : (
-                                    <div className="text-gray-600 text-xs">
-                                        Trả góp 0% - 0đ phụ thu - 0đ trả trước
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                    {sortedProducts.map((product) => (
+                        <Card key={product.id} product={product} />
                     ))}
                 </div>
+
             </div>
 
             <button className="fixed bottom-8 right-8 bg-red-600 text-white px-6 py-4 rounded-full shadow-lg hover:bg-red-700 transition z-50 flex items-center gap-2">
                 <span className="text-2xl">🎧</span>
                 <span className="font-medium">Liên hệ</span>
             </button>
+            <Footer />
         </div>
     );
 };

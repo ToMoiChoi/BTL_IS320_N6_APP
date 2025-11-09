@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-import Header from './components/header';
+import Header from './components/Header';
 import Home from './components/Home';
 import Login from './components/login';
+import ProductDetail from './components/ProductDetail';
 import {
   products,
   seriesCategories,
@@ -16,7 +18,6 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
 
-  // Hàm xử lý đăng nhập thành công
   const handleLoginSuccess = (userData) => {
     setIsLoggedIn(true);
     setUserInfo(userData);
@@ -30,7 +31,22 @@ const App = () => {
 
   return (
     <Router>
+      {/* Sử dụng Switch để đảm bảo chỉ một route được render */}
       <Switch>
+        <Route
+          path="/products/:productId"
+          render={(props) => (
+            <ProductDetail
+              {...props}
+              products={products} // Truyền data sản phẩm để tìm kiếm
+              isLoggedIn={isLoggedIn}
+              userInfo={userInfo}
+              onLogout={handleLogout}
+            />
+          )}
+        />
+
+        {/* ROUTE ĐĂNG NHẬP */}
         <Route
           exact
           path="/login"
@@ -41,7 +57,9 @@ const App = () => {
             />
           )}
         />
-        <Route path="/">
+
+        {/* ROUTE TRANG CHỦ (PHẢI ĐẶT CUỐI CÙNG HOẶC DÙNG 'exact' VÌ NÓ CÓ PATH="/") */}
+        <Route exact path="/">
           <Home
             selectedSort={selectedSort}
             setSelectedSort={setSelectedSort}
@@ -55,6 +73,9 @@ const App = () => {
             onLogout={handleLogout}
           />
         </Route>
+
+        {/* Thêm một Route mặc định cho 404 nếu cần thiết */}
+
       </Switch>
     </Router>
   );
