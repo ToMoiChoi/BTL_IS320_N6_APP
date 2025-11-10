@@ -70,7 +70,7 @@ const Header = ({ isLoggedIn, userInfo, onLogout }) => {
 
                         {/* Category Button */}
                         <button
-                            className="hidden md:flex items-center gap-2 bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition"
+                            className="max-[1024px]:hidden flex gap-2 bg-white/20 px-4 py-2 h-max rounded-xl hover:bg-white/30 transition "
                             onClick={() => setIsCategoryModalVisible(true)}
                         >
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -103,7 +103,7 @@ const Header = ({ isLoggedIn, userInfo, onLogout }) => {
                                     strokeLinejoin="round"
                                 />
                             </svg>
-                            <span className="text-sm">{currentCategory}</span>
+                            <span className="text-sm items-center">{currentCategory}</span>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M6.7041 9L12.7041 15L18.7041 9"
@@ -172,14 +172,22 @@ const Header = ({ isLoggedIn, userInfo, onLogout }) => {
                         {/* Location Button */}
                         <div className="px-4 py-2">
                             <button
-                                className="flex items-center bg-[#e53935] px-4 py-3 rounded-xl w-full md:w-auto"
+                                className="flex items-center bg-white/20 px-4 py-3 rounded-xl md:w-auto"
                                 onClick={() => setIsLocationModalVisible(true)}
                             >
-                                <span className="text-white text-lg">📍</span>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.7041 11C9.7041 11.7956 10.0202 12.5587 10.5828 13.1213C11.1454 13.6839 11.9085 14 12.7041 14C13.4998 14 14.2628 13.6839 14.8254 13.1213C15.388 12.5587 15.7041 11.7956 15.7041 11C15.7041 10.2044 15.388 9.44129 14.8254 8.87868C14.2628 8.31607 13.4998 8 12.7041 8C11.9085 8 11.1454 8.31607 10.5828 8.87868C10.0202 9.44129 9.7041 10.2044 9.7041 11Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.7239 21.206C13.3419 21.4323 12.8955 21.525 12.455 21.4696C12.0145 21.4142 11.605 21.2138 11.2909 20.9L7.04692 16.657C6.14375 15.7536 5.47005 14.647 5.08221 13.4298C4.69436 12.2127 4.60364 10.9203 4.81763 9.66088C5.03162 8.40146 5.5441 7.2116 6.3122 6.19084C7.0803 5.17008 8.08168 4.34811 9.23257 3.79368C10.3835 3.23926 11.6504 2.96851 12.9274 3.00408C14.2043 3.03965 15.4542 3.38051 16.5725 3.99814C17.6907 4.61578 18.6448 5.49222 19.3548 6.55416C20.0649 7.6161 20.5104 8.83264 20.6539 10.102" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M21.7041 15H19.2041C18.8063 15 18.4247 15.158 18.1434 15.4393C17.8621 15.7206 17.7041 16.1022 17.7041 16.5C17.7041 16.8978 17.8621 17.2794 18.1434 17.5607C18.4247 17.842 18.8063 18 19.2041 18H20.2041C20.6019 18 20.9835 18.158 21.2648 18.4393C21.5461 18.7206 21.7041 19.1022 21.7041 19.5C21.7041 19.8978 21.5461 20.2794 21.2648 20.5607C20.9835 20.842 20.6019 21 20.2041 21H17.7041" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M19.7041 21V22M19.7041 14V15" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                                 <span className="text-white text-base font-medium mx-2 flex-1 text-left">
                                     {currentLocation}
                                 </span>
-                                <span className="text-white text-lg">⌄</span>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6.7041 9L12.7041 15L18.7041 9"
+                                        stroke="white"
+                                        strokeWidth="1.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
                             </button>
 
                             {/* Location Modal */}
@@ -238,9 +246,9 @@ const Header = ({ isLoggedIn, userInfo, onLogout }) => {
                         </div>
                     </div>
 
-                    <div className="flex-1 max-w-2xl">
+                    <div className="flex-1 max-w-2xl min-w-xl">
                         <div className="relative">
-                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_4895_10933)"><path d="M3.7041 10C3.7041 10.9193 3.88516 11.8295 4.23694 12.6788C4.58873 13.5281 5.10434 14.2997 5.75435 14.9497C6.40436 15.5998 7.17604 16.1154 8.02532 16.4672C8.8746 16.8189 9.78485 17 10.7041 17C11.6234 17 12.5336 16.8189 13.3829 16.4672C14.2322 16.1154 15.0038 15.5998 15.6538 14.9497C16.3039 14.2997 16.8195 13.5281 17.1713 12.6788C17.523 11.8295 17.7041 10.9193 17.7041 10C17.7041 9.08075 17.523 8.1705 17.1713 7.32122C16.8195 6.47194 16.3039 5.70026 15.6538 5.05025C15.0038 4.40024 14.2322 3.88463 13.3829 3.53284C12.5336 3.18106 11.6234 3 10.7041 3C9.78485 3 8.8746 3.18106 8.02532 3.53284C7.17604 3.88463 6.40436 4.40024 5.75435 5.05025C5.10434 5.70026 4.58873 6.47194 4.23694 7.32122C3.88516 8.1705 3.7041 9.08075 3.7041 10Z" stroke="#1D1D20" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M21.7041 21L15.7041 15" stroke="#1D1D20" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></g> <defs><clipPath id="clip0_4895_10933"><rect width="24" height="24" fill="white" transform="translate(0.704102)"></rect></clipPath></defs></svg></span>
                             <input
                                 type="text"
                                 placeholder="Bạn muốn mua gì hôm nay?"
@@ -250,10 +258,14 @@ const Header = ({ isLoggedIn, userInfo, onLogout }) => {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button className="hidden md:flex items-center gap-2 hover:opacity-80 transition">
-                            <span>🛒</span>
-                            <span className="text-sm">Giỏ hàng</span>
-                            <span className="bg-yellow-400 text-red-600 text-xs font-bold px-2 py-0.5 rounded-full">0</span>
+                        <button className="relative flex items-center gap-2 bg-[#e53935] text-white px-4 py-2 rounded-lg hover:bg-[#d32f2f] transition">
+                            <span className="max-[1024px]:hidden text-base font-medium">Giỏ hàng</span>
+                            <div className="relative">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 20C16.5 19.4477 16.9477 19 17.5 19C18.0523 19 18.5 19.4477 18.5 20C18.5 20.5523 18.0523 21 17.5 21C16.9477 21 16.5 20.5523 16.5 20Z" fill="white" stroke="white" stroke-width="1.5" stroke-linecap="round"></path> <path d="M6.5 20C6.5 19.4477 6.94772 19 7.5 19C8.05228 19 8.5 19.4477 8.5 20C8.5 20.5523 8.05228 21 7.5 21C6.94772 21 6.5 20.5523 6.5 20Z" fill="white" stroke="white" stroke-width="1.5" stroke-linecap="round"></path> <path d="M2.5 3H3.26772C3.74998 3 4.16354 3.3442 4.2511 3.81845L4.65385 6M4.65385 6L6.1978 14.3631C6.37291 15.3116 7.20004 16 8.16457 16H17.3968C17.8625 16 18.2665 15.6786 18.3712 15.2249L20.2173 7.22486C20.3619 6.59824 19.886 6 19.2429 6H4.65385Z" stroke="white" stroke-width="1.5" stroke-linecap="round"></path></svg>
+                                <span className="absolute right-[-5px] top-[-5px] bg-[#f98315] border border-white rounded-[8px] text-white text-[10px] font-bold leading-none px-[4px] py-[1px]">
+                                    2
+                                </span>
+                            </div>
                         </button>
 
                         {/* Login Button */}
@@ -274,7 +286,7 @@ const Header = ({ isLoggedIn, userInfo, onLogout }) => {
                                 {showUserMenu && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
                                         <div className="px-4 py-2 border-b border-gray-100">
-                                            <p className="text-sm font-medium text-gray-900">{userInfo?.name}</p>
+                                            <p className="text-white text-base font-medium mx-2 flex-1 text-left">{userInfo?.name}</p>
                                             <p className="text-xs text-gray-500">{userInfo?.email}</p>
                                         </div>
                                         <Link
@@ -297,9 +309,9 @@ const Header = ({ isLoggedIn, userInfo, onLogout }) => {
                         ) : (
                             <Link
                                 to="/login"
-                                className="hidden md:flex items-center gap-2 bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition"
+                                className="hidden md:flex items-center gap-2 bg-white/20 px-4 hover:bg-white/30 transition py-3 rounded-xl md:w-auto"
                             >
-                                <span className="text-sm">Đăng nhập</span>
+                                <span className="text-white text-base font-medium mx-2 flex-1 text-left-sm">Đăng nhập</span>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clipPath="url(#clip0_4926_290388)">
                                         <path

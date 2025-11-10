@@ -32,7 +32,6 @@ const App = () => {
 
   return (
     <Router>
-      {/* Sử dụng Switch để đảm bảo chỉ một route được render */}
       <Switch>
         <Route
           path="/products/:productId"
