@@ -1,86 +1,129 @@
 import React, { useState } from 'react';
+import Header from './components/Header'; 
+import Footer from './components/Footer';
+import ProductDetail from './pages/ProductDetail';
+import Cart from './pages/Cart';
+import Login from './pages/Login'; 
+import Register from './pages/Register'; 
+import Profile from './pages/Profile'; // Import Profile mới
+
+// Dữ liệu sản phẩm cho trang danh sách (giữ nguyên)
+const initialProducts = [
+  {
+    id: 1,
+    name: 'iPhone 15 Pro Max 256GB | Chính hãng VN/A',
+    image: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-15-pro-max_3.png',
+    price: '26.490.000đ',
+    originalPrice: '34.990.000đ',
+    discount: 24,
+    installment: 'Smember giảm đến 265.000đ',
+    specs: ['6.7 inches', '8 GB', '256 GB'],
+    status: 'Sắp về hàng',
+    installmentRate: '0%'
+  },
+  {
+    id: 2,
+    name: 'iPhone 16 Pro 128GB | Chính hãng VN/A',
+    image: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro_1.png',
+    price: '25.990.000đ',
+    originalPrice: '28.990.000đ',
+    discount: 10,
+    installment: 'Smember giảm đến 260.000đ',
+    specs: ['6.3 inches', '128 GB'],
+    installmentRate: '0%'
+  },
+  {
+    id: 3,
+    name: 'Điện thoại iPhone 17 Pro 256GB',
+    image: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-17-pro-256-gb.png',
+    price: '34.990.000đ',
+    discount: 14,
+    installment: 'Smember giảm đến 350.000đ',
+    specs: ['6.3 inches', '256 GB'],
+    installmentRate: '0%'
+  },
+  {
+    id: 4,
+    name: 'iPhone 14 128GB | Chính hãng VN/A',
+    image: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-14_2_1.jpg',
+    price: '13.690.000đ',
+    originalPrice: '14.990.000đ',
+    discount: 9,
+    installment: 'Smember giảm đến 137.000đ',
+    specs: ['6.1 inches', '6 GB', '128 GB'],
+    installmentRate: '0%'
+  },
+  {
+    id: 5,
+    name: 'iPhone 14 Pro Max 128GB | Chính hãng VN/A',
+    image: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-14-pro_2__5.png',
+    price: '25.590.000đ',
+    originalPrice: '29.990.000đ',
+    discount: 15,
+    installment: 'Smember giảm đến 256.000đ',
+    specs: ['6.7 inches', '6 GB', '128 GB'],
+    installmentRate: '0%'
+  },
+  {
+    id: 6,
+    name: 'iPhone 15 128GB | Chính hãng VN/A',
+    image: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-15-plus_1_.png',
+    price: '19.490.000đ',
+    originalPrice: '22.990.000đ',
+    discount: 13,
+    installment: 'Smember giảm đến 195.000đ',
+    specs: ['6.1 inches', '6 GB', '128 GB'],
+    installmentRate: '0%'
+  }
+];
+
+// Dữ liệu sản phẩm mẫu cho trang chi tiết (giữ nguyên)
+const sampleProductDetail = {
+  id: 7,
+  name: 'OPPO Reno14 F 8GB 256GB',
+  price: '9.800.000đ',
+  originalPrice: '10.300.000đ',
+  discountText: 'Tiết kiệm 500.000đ',
+  image: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/o/p/oppo-reno14-f.png',
+  color: 'Xanh dương',
+  ramRomOptions: [
+    { label: 'Reno14 F', specs: '8G 256GB', price: '9.800.000đ', active: true },
+    { label: 'Reno14 Pro', specs: '12G 256GB', price: '10.500.000đ' },
+    { label: 'Reno14 Lite', specs: '6G 128GB', price: '8.500.000đ' },
+  ],
+  specs: [
+    { label: 'Màn hình', detail: '6.43 inches, AMOLED, 90Hz' },
+    { label: 'Camera sau', detail: 'Chính 64MP, Góc rộng 8MP, Macro 2MP' },
+    { label: 'Camera trước', detail: '32MP' },
+    { label: 'Chipset', detail: 'MediaTek Dimensity 920' },
+    { label: 'Bộ nhớ trong', detail: '256 GB' },
+    { label: 'RAM', detail: '8 GB' },
+    { label: 'Pin', detail: '4500mAh, Sạc nhanh 33W' },
+  ]
+};
+
+// Dữ liệu sản phẩm mẫu cho trang giỏ hàng (giữ nguyên)
+const cartItems = [
+  {
+    id: 1,
+    name: 'OPPO Reno14 F - Xanh dương',
+    price: '10.300.000đ',
+    quantity: 1,
+    image: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/o/p/oppo-reno14-f.png',
+  }
+];
 
 const App = () => {
   const [selectedSort, setSelectedSort] = useState('popular');
-  
-  const products = [
-    {
-      id: 1,
-      name: 'iPhone 15 Pro Max 256GB | Chính hãng VN/A',
-      image: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-15-pro-max_3.png',
-      price: '26.490.000đ',
-      originalPrice: '34.990.000đ',
-      discount: 24,
-      installment: 'Smember giảm đến 265.000đ',
-      specs: ['6.7 inches', '8 GB', '256 GB'],
-      status: 'Sắp về hàng',
-      installmentRate: '0%'
-    },
-    {
-      id: 2,
-      name: 'iPhone 16 Pro 128GB | Chính hãng VN/A',
-      image: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro_1.png',
-      price: '25.990.000đ',
-      originalPrice: '28.990.000đ',
-      discount: 10,
-      installment: 'Smember giảm đến 260.000đ',
-      specs: ['6.3 inches', '128 GB'],
-      installmentRate: '0%'
-    },
-    {
-      id: 3,
-      name: 'Điện thoại iPhone 17 Pro 256GB',
-      image: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-17-pro-256-gb.png',
-      price: '34.990.000đ',
-      discount: 14,
-      installment: 'Smember giảm đến 350.000đ',
-      specs: ['6.3 inches', '256 GB'],
-      installmentRate: '0%'
-    },
-    {
-      id: 4,
-      name: 'iPhone 14 128GB | Chính hãng VN/A',
-      image: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-14_2_1.jpg',
-      price: '13.690.000đ',
-      originalPrice: '14.990.000đ',
-      discount: 9,
-      installment: 'Smember giảm đến 137.000đ',
-      specs: ['6.1 inches', '6 GB', '128 GB'],
-      installmentRate: '0%'
-    },
-    {
-      id: 5,
-      name: 'iPhone 14 Pro Max 128GB | Chính hãng VN/A',
-      image: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-14-pro_2__5.png',
-      price: '25.590.000đ',
-      originalPrice: '29.990.000đ',
-      discount: 15,
-      installment: 'Smember giảm đến 256.000đ',
-      specs: ['6.7 inches', '6 GB', '128 GB'],
-      installmentRate: '0%'
-    },
-    {
-      id: 6,
-      name: 'iPhone 15 128GB | Chính hãng VN/A',
-      image: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-15-plus_1_.png',
-      price: '19.490.000đ',
-      originalPrice: '22.990.000đ',
-      discount: 13,
-      installment: 'Smember giảm đến 195.000đ',
-      specs: ['6.1 inches', '6 GB', '128 GB'],
-      installmentRate: '0%'
-    }
-  ];
+  const [currentPage, setCurrentPage] = useState('list'); 
+  const [selectedProduct, setSelectedProduct] = useState(initialProducts[0]); 
+  // State mới quản lý trạng thái đăng nhập
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [userInfo, setUserInfo] = useState({ name: 'Trần Văn A', phone: '0987xxxxxx', memberTier: '4MEMBER' }); // Dữ liệu người dùng giả lập
 
   const seriesCategories = [
-    'IPHONE 17 SERIES',
-    'IPHONE AIR',
-    'IPHONE 16 SERIES',
-    'IPHONE 15 SERIES',
-    'IPHONE 14 SERIES',
-    'IPHONE 13 SERIES',
-    'IPHONE 12 SERIES',
-    'IPHONE 11 SERIES'
+    'IPHONE 17 SERIES', 'IPHONE AIR', 'IPHONE 16 SERIES', 'IPHONE 15 SERIES', 
+    'IPHONE 14 SERIES', 'IPHONE 13 SERIES', 'IPHONE 12 SERIES', 'IPHONE 11 SERIES'
   ];
 
   const filterOptions = [
@@ -108,64 +151,13 @@ const App = () => {
     { icon: '↓', label: 'Giá Cao - Thấp', value: 'price-desc' }
   ];
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-
-      <header className="bg-gradient-to-r from-red-500 to-pink-500 text-white sticky top-0 z-50 shadow-lg">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center justify-between gap-4">
- 
-            <div className="flex items-center gap-4">
-              <div className="text-2xl font-bold">cellphone S</div>
-              
-    
-              <button className="hidden md:flex items-center gap-2 bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition">
-                <span className="text-sm">☰ Danh mục</span>
-                <span className="text-xs">▼</span>
-              </button>
-              
-  
-              <button className="hidden md:flex items-center gap-2 bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition">
-                <span>📍</span>
-                <span className="text-sm">Hồ Chí Minh</span>
-                <span className="text-xs">▼</span>
-              </button>
-            </div>
-
-        
-            <div className="flex-1 max-w-2xl">
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
-                <input
-                  type="text"
-                  placeholder="Bạn muốn mua gì hôm nay?"
-                  className="w-full pl-12 pr-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white/50"
-                />
-              </div>
-            </div>
-
-     
-            <div className="flex items-center gap-4">
-              <button className="hidden md:flex items-center gap-2 hover:opacity-80 transition">
-                <span>🛒</span>
-                <span className="text-sm">Giỏ hàng</span>
-                <span className="bg-yellow-400 text-red-600 text-xs font-bold px-2 py-0.5 rounded-full">0</span>
-              </button>
-              <button className="hidden md:flex items-center gap-2 bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition">
-                <span>👤</span>
-                <span className="text-sm">Đăng nhập</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-    
+  const renderProductList = () => (
+    <>
       <div className="container mx-auto px-4 py-6">
   
         <h1 className="text-3xl font-bold mb-6">iPhone</h1>
 
-  
+    
         <div className="flex flex-wrap gap-3 mb-6">
           {seriesCategories.map((category, index) => (
             <button
@@ -177,10 +169,10 @@ const App = () => {
           ))}
         </div>
 
-     
+      
         <h2 className="text-xl font-bold mb-4">Chọn theo tiêu chí</h2>
 
-    
+      
         <div className="flex flex-wrap gap-3 mb-3">
           {filterOptions.map((filter, index) => (
             <button
@@ -198,7 +190,7 @@ const App = () => {
           ))}
         </div>
 
-  
+    
         <div className="flex flex-wrap gap-3 mb-8">
           {filterOptions2.map((filter, index) => (
             <button
@@ -211,7 +203,7 @@ const App = () => {
           ))}
         </div>
 
-   
+    
         <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
           <h2 className="text-xl font-bold">Sắp xếp theo</h2>
           <div className="flex gap-3 flex-wrap">
@@ -234,10 +226,14 @@ const App = () => {
 
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {products.map((product) => (
+          {initialProducts.map((product) => (
             <div
               key={product.id}
               className="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition cursor-pointer group"
+              onClick={() => {
+                setSelectedProduct(product);
+                setCurrentPage('detail');
+              }}
             >
               <div className="relative p-4">
         
@@ -250,7 +246,7 @@ const App = () => {
                   </span>
                 </div>
 
-         
+        
                 <div className="aspect-square mb-4 overflow-hidden rounded-lg">
                   <img
                     src={product.image}
@@ -263,7 +259,7 @@ const App = () => {
                   {product.name}
                 </h3>
 
-   
+  
                 <div className="flex flex-wrap gap-2 mb-3">
                   {product.specs.map((spec, index) => (
                     <span
@@ -275,7 +271,7 @@ const App = () => {
                   ))}
                 </div>
 
-   
+  
                 <div className="mb-2">
                   <div className="flex items-center gap-2">
                     <span className="text-red-600 font-bold text-lg">
@@ -289,7 +285,7 @@ const App = () => {
                   </div>
                 </div>
 
-     
+    
                 <div className="bg-blue-50 text-blue-600 text-xs px-2 py-1 rounded mb-2">
                   {product.installment}
                 </div>
@@ -308,14 +304,51 @@ const App = () => {
           ))}
         </div>
       </div>
+    </>
+  );
 
+  const renderContent = () => {
+    switch (currentPage) {
+      case 'detail':
+        return <ProductDetail product={sampleProductDetail} setCurrentPage={setCurrentPage} />;
+      case 'cart':
+        return <Cart items={cartItems} setCurrentPage={setCurrentPage} />;
+      case 'login':
+        // Truyền hàm setIsLoggedIn và setCurrentPage
+        return <Login setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} />; 
+      case 'register':
+        return <Register setCurrentPage={setCurrentPage} />; 
+      case 'profile':
+        // Truyền thông tin người dùng giả lập
+        return <Profile userInfo={userInfo} setIsLoggedIn={setIsLoggedIn} setCurrentPage={setCurrentPage} />; 
+      case 'list':
+      default:
+        return renderProductList();
+    }
+  };
+
+  const showFooter = currentPage === 'list' || currentPage === 'detail' || currentPage === 'cart';
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+
+      {/* Truyền isLoggedIn, setCurrentPage, và userInfo vào Header */}
+      <Header 
+        setCurrentPage={setCurrentPage} 
+        isLoggedIn={isLoggedIn}
+        userInfo={userInfo}
+      /> 
+
+      {renderContent()}
 
       <button className="fixed bottom-8 right-8 bg-red-600 text-white px-6 py-4 rounded-full shadow-lg hover:bg-red-700 transition z-50 flex items-center gap-2">
         <span className="text-2xl">🎧</span>
         <span className="font-medium">Liên hệ</span>
       </button>
+      
+      {showFooter && <Footer />}
     </div>
   );
 };
 
-export default App; 
+export default App;
