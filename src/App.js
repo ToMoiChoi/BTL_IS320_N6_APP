@@ -2,10 +2,26 @@ import React, { useState } from 'react';
 import Header from './components/Header'; 
 import Footer from './components/Footer';
 import ProductDetail from './pages/ProductDetail';
-import Cart from './pages/Cart';
+import Cart from './components/Cart';
 import Login from './pages/Login'; 
 import Register from './pages/Register'; 
 import Profile from './pages/Profile'; // Import Profile mới
+
+
+// import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+// import Header from './components/Header';
+// import Home from './components/Home';
+// import Login from './components/login';
+// import ProductDetail from './components/ProductDetail';
+import {
+  products,
+  seriesCategories,
+  filterOptions,
+  filterOptions2,
+  sortOptions
+} from './data/productsData';
+import Account from './components/Account';
+
 
 // Dữ liệu sản phẩm cho trang danh sách (giữ nguyên)
 const initialProducts = [
@@ -113,8 +129,10 @@ const cartItems = [
   }
 ];
 
+
 const App = () => {
   const [selectedSort, setSelectedSort] = useState('popular');
+
   const [currentPage, setCurrentPage] = useState('list'); 
   const [selectedProduct, setSelectedProduct] = useState(initialProducts[0]); 
   // State mới quản lý trạng thái đăng nhập
@@ -126,30 +144,13 @@ const App = () => {
     'IPHONE 14 SERIES', 'IPHONE 13 SERIES', 'IPHONE 12 SERIES', 'IPHONE 11 SERIES'
   ];
 
-  const filterOptions = [
-    { icon: '🎛️', label: 'Bộ lọc', active: true },
-    { icon: '🚚', label: 'Sẵn hàng' },
-    { icon: '📦', label: 'Hàng mới về' },
-    { icon: '⏰', label: 'Xem theo giá' },
-    { label: 'Bộ nhớ trong', hasDropdown: true },
-    { label: 'Dung lượng RAM', hasDropdown: true },
-    { label: 'Kích thước màn hình', hasDropdown: true }
-  ];
 
-  const filterOptions2 = [
-    { label: 'Nhu cầu sử dụng', hasDropdown: true },
-    { label: 'Kiểu màn hình', hasDropdown: true },
-    { label: 'Tính năng camera', hasDropdown: true },
-    { label: 'Tần số quét', hasDropdown: true },
-    { label: 'Tính năng đặc biệt', hasDropdown: true }
-  ];
+  // Hàm xử lý đăng xuất
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUserInfo(null);
+  };
 
-  const sortOptions = [
-    { icon: '⭐', label: 'Phổ biến', value: 'popular' },
-    { icon: '🔥', label: 'Khuyến mãi HOT', value: 'hot' },
-    { icon: '↑', label: 'Giá Thấp - Cao', value: 'price-asc' },
-    { icon: '↓', label: 'Giá Cao - Thấp', value: 'price-desc' }
-  ];
 
   const renderProductList = () => (
     <>
@@ -348,6 +349,7 @@ const App = () => {
       
       {showFooter && <Footer />}
     </div>
+
   );
 };
 
