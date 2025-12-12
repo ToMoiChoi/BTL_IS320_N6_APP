@@ -17,6 +17,7 @@ const ProductDetail = ({ product }) => {
       {/* Thanh Breadcrumb */}
       <div className="container mx-auto px-4 py-3 text-sm text-gray-500">
         <span className="cursor-pointer hover:text-red-500" onClick={() => history.push('/')}>Điện thoại</span> &gt; OPPO &gt; {product.name}
+
       </div>
 
       <div className="container mx-auto px-4">

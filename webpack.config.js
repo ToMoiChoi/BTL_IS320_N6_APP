@@ -11,7 +11,8 @@ module.exports = {
   devServer: {
     historyApiFallback: true,  // Thêm config này để hỗ trợ React Router
     port: 8080,
-    hot: true
+    hot: true,
+
   },
   resolve: {
     alias: {

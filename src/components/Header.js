@@ -5,6 +5,8 @@ const Header = ({ isLoggedIn, userInfo }) => {
   const history = useHistory();
   const memberColor = userInfo?.memberTier === '4VIP' ? 'bg-red-600' : 'bg-pink-600';
 
+
+
   return (
     <header className="bg-gradient-to-r from-red-500 to-pink-500 text-white sticky top-0 z-50 shadow-lg">
       <div className="container mx-auto px-4 py-3">
@@ -71,6 +73,7 @@ const Header = ({ isLoggedIn, userInfo }) => {
                 <span className="text-2xl">👤</span>
                 <span>Đăng nhập</span>
               </button>
+
             )}
           </div>
         </div>

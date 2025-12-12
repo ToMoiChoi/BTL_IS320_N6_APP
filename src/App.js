@@ -10,6 +10,12 @@ import Profile from './pages/Profile';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminRegister from './pages/admin/AdminRegister';
 import AdminDashboard from './pages/admin/AdminDashboard';
+
+// import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+// import Header from './components/Header';
+// import Home from './components/Home';
+// import Login from './components/login';
+// import ProductDetail from './components/ProductDetail';
 import {
   products,
   seriesCategories,
@@ -19,7 +25,7 @@ import {
 } from './data/productsData';
 import Account from './components/Account';
 
-// Dữ liệu sản phẩm cho trang danh sách
+
 const initialProducts = [
   {
     id: 1,
@@ -89,7 +95,6 @@ const initialProducts = [
   }
 ];
 
-// Dữ liệu sản phẩm mẫu cho trang chi tiết
 const sampleProductDetail = {
   id: 7,
   name: 'OPPO Reno14 F 8GB 256GB',
@@ -114,7 +119,7 @@ const sampleProductDetail = {
   ]
 };
 
-// Dữ liệu sản phẩm mẫu cho trang giỏ hàng
+
 const cartItems = [
   {
     id: 1,
@@ -169,7 +174,6 @@ const ProductListPage = () => {
             </button>
           ))}
         </div>
-
         <div className="flex flex-wrap gap-3 mb-8">
           {filterOptions2.map((filter, index) => (
             <button
@@ -181,7 +185,6 @@ const ProductListPage = () => {
             </button>
           ))}
         </div>
-
         <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
           <h2 className="text-xl font-bold">Sắp xếp theo</h2>
           <div className="flex gap-3 flex-wrap">
@@ -201,13 +204,13 @@ const ProductListPage = () => {
             ))}
           </div>
         </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {initialProducts.map((product) => (
             <div
               key={product.id}
               className="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition cursor-pointer group"
               onClick={() => {
+
                 history.push(`/product/${product.id}`);
               }}
             >
@@ -232,7 +235,6 @@ const ProductListPage = () => {
                 <h3 className="font-medium text-sm mb-2 line-clamp-2 min-h-[40px]">
                   {product.name}
                 </h3>
-
                 <div className="flex flex-wrap gap-2 mb-3">
                   {product.specs.map((spec, index) => (
                     <span
@@ -243,7 +245,6 @@ const ProductListPage = () => {
                     </span>
                   ))}
                 </div>
-
                 <div className="mb-2">
                   <div className="flex items-center gap-2">
                     <span className="text-red-600 font-bold text-lg">
@@ -256,7 +257,6 @@ const ProductListPage = () => {
                     )}
                   </div>
                 </div>
-
                 <div className="bg-blue-50 text-blue-600 text-xs px-2 py-1 rounded mb-2">
                   {product.installment}
                 </div>
@@ -361,7 +361,6 @@ const App = () => {
         </button>
       )}
     </div>
-  );
-};
+)};
 
 export default App;

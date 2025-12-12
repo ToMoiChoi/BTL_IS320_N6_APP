@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { useHistory } from 'react-router-dom';
 
 const Profile = ({ userInfo, setIsLoggedIn, setCurrentPage }) => {
@@ -7,6 +8,7 @@ const Profile = ({ userInfo, setIsLoggedIn, setCurrentPage }) => {
   const handleLogout = () => {
     setIsLoggedIn(false);
     history.push('/');
+
     alert('Đã đăng xuất.');
   };
 

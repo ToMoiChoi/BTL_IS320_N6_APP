@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
 const Login = ({ setCurrentPage, setIsLoggedIn }) => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+
   const history = useHistory();
+
   const handleLogin = (e) => {
     e.preventDefault();
     // Logic giả lập: Nếu có thông tin, coi như đăng nhập thành công

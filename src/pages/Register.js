@@ -112,6 +112,7 @@ const Register = () => {
                 placeholder="Nhập họ và tên của bạn"
                 className="mt-1 w-full border border-gray-300 p-3 rounded-lg focus:border-red-500 focus:ring-red-500"
                 required
+
               />
             </div>
             
@@ -141,9 +142,11 @@ const Register = () => {
             </div>
 
             <div>
+
               <label htmlFor="reg-password" className="block text-sm font-medium text-gray-700">
                 Mật khẩu <span className="text-red-500">*</span>
               </label>
+
               <div className="relative">
                 <input
                   type="password"
@@ -190,6 +193,7 @@ const Register = () => {
             </button>
 
             <div className="text-center pt-4">
+
               <p className="text-sm text-gray-600">
                 Đã có tài khoản?{' '}
                 <button
